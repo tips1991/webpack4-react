@@ -4,53 +4,53 @@
 1. 新进目录（名字自己起）<br> 
 2. 顺序执行以下代码(window和mac命令有略微出入，请注意)<br> 
 ```DOS
-npm init -y<br> 
-cnpm i webpack webpack-cli -D // 针对webpack4的安装<br> 
-mkdir src && cd src && touch index.html index.js    //webpack4约定大于配置，创建默认的入口文件src/index.js<br> 
-cd ../ && mkdir dist && mkdir static<br> 
-touch webpack.config.js               //webpack配置文件<br> 
-npm i webpack-dev-server --save-dev   //热更新server，但是要手动刷新浏览器。请安装下面依赖，自动更新<br> 
-cnpm i html-webpack-plugin@latest -D  //生成内存html的插件  --自动热更新反应到浏览器<br> 
+npm init -y
+cnpm i webpack webpack-cli -D // 针对webpack4的安装 
+mkdir src && cd src && touch index.html index.js    //webpack4约定大于配置，创建默认的入口文件src/index.js
+cd ../ && mkdir dist && mkdir static
+touch webpack.config.js               //webpack配置文件
+npm i webpack-dev-server --save-dev   //热更新server，但是要手动刷新浏览器。请安装下面依赖，自动更新
+cnpm i html-webpack-plugin@latest -D  //生成内存html的插件  --自动热更新反应到浏览器
 ```
 3. 配置 package.json文件<br>
 ```javascript
-//package.json<br> 
-{<br> 
-  "name": "webpack4",<br> 
-  "version": "1.0.0",<br> 
-  "description": "",<br> 
-  "main": "index.js",<br> 
-  "scripts": {<br> 
-    "build": "webpack --mode production",<br> 
-    "dev": "webpack-dev-server --open --hot"<br> 
-  },<br> 
-  "keywords": [],<br> 
-  "author": "",<br> 
-  "license": "ISC",<br> 
-  "devDependencies": {<br> 
-    "html-webpack-plugin": "^3.2.0",<br> 
-    "webpack": "^4.41.5",<br> 
-    "webpack-cli": "^3.3.10",<br> 
-    "webpack-dev-server": "^3.10.1"<br> 
+//package.json
+{ 
+  "name": "webpack4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack-dev-server --open --hot" 
+  },
+  "keywords": [],
+  "author": "", 
+  "license": "ISC",
+  "devDependencies": 
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
   }<br> 
 }<br> 
 ```
 4. 配置webpack.config.js<br> 
 ```javascript
-const path = require('path');<br> 
-const HtmlWebpackPlugin = require('html-webpack-plugin');//个人理解：生成临时html文件到根目录的内存中。代码编辑保存后重新渲染一份静态的临时文件到根目录内存<br> 
-// 创建一个插件的实例化对象<br> 
-const htmlPlugin = new HtmlWebpackPlugin({<br> 
-	template:path.join(__dirname,'./src/index.html'),//源文件，对此文件生成临时文件到内存中<br> 
-	filename:'index.html' //生成的临时文件目录和文件名称。（目录：根目录。文件名称：index.html）<br> 
-});<br> 
-// 向外暴露一个打包的配置对象，因为webpack是基于node构建的，所以webpack支持所有node api和语法<br> 
-module.exports = {<br> 
-	mode:'development',// 在webpack4中，约定大于配置，约定入口为src/index.js<br> 
-	plugins:[<br> 
-		htmlPlugin <br> 
-	]<br> 
-}<br> 
+const path = require('path'); 
+const HtmlWebpackPlugin = require('html-webpack-plugin');//个人理解：生成临时html文件到根目录的内存中。代码编辑保存后重新渲染一份静态的临时文件到根目录内存
+// 创建一个插件的实例化对象
+const htmlPlugin = new HtmlWebpackPlugin( 
+	template:path.join(__dirname,'./src/index.html'),//源文件，对此文件生成临时文件到内存中
+	filename:'index.html' //生成的临时文件目录和文件名称。（目录：根目录。文件名称：index.html）
+});
+// 向外暴露一个打包的配置对象，因为webpack是基于node构建的，所以webpack支持所有node api和语法 
+module.exports = {
+	mode:'development',// 在webpack4中，约定大于配置，约定入口为src/index.js
+	plugins:[
+		htmlPlugin 
+	]
+}
 ```
 
 # react配置
@@ -59,6 +59,6 @@ module.exports = {<br>
 *react-dom：进行dom操作，主要场景：ReactDOM.render()*<br> 
 1. 安装react和react-dom<br> 
 ```DOM
-cnpm i react react-dom -S  //-S开发环境和生产环境安装  -D只在开发环境安装<br> 
+cnpm i react react-dom -S  //-S开发环境和生产环境安装  -D只在开发环境安装 
 ```
 
