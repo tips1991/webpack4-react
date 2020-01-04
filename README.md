@@ -32,8 +32,8 @@ cnpm i html-webpack-plugin@latest -D  //生成内存html的插件  --自动热�
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
-  }<br> 
-}<br> 
+  }
+}
 ```
 4. 配置webpack.config.js<br> 
 ```javascript
