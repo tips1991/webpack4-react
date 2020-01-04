@@ -1,8 +1,8 @@
-webpack4-react
+# webpack4-react
 *github地址：https://github.com/tips1991/webpack4-react.git<br> 
-webpack4配置 我装的都是2020.1.4号最新的<br> 
-新进目录（名字自己起）<br> 
-顺序执行以下代码(window和mac命令有略微出入，请注意)<br> 
+## webpack4配置 我装的都是2020.1.4号最新的<br> 
+1. 新进目录（名字自己起）<br> 
+2. 顺序执行以下代码(window和mac命令有略微出入，请注意)<br> 
 npm init -y<br> 
 cnpm i webpack webpack-cli -D // 针对webpack4的安装<br> 
 mkdir src && cd src && touch index.html index.js    //webpack4约定大于配置，创建默认的入口文件src/index.js<br> 
@@ -50,8 +50,9 @@ module.exports = {<br>
 }<br> 
 
 我是小尾巴…………<br> 
-react配置
-----
+
+# react配置
+
 react：用于创建组件和虚拟DOM，同时组件的生命周期都在这个包中<br> 
 react-dom：进行dom操作，主要场景：ReactDOM.render()<br> 
 安装react和react-dom<br> 
