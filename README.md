@@ -1,8 +1,9 @@
 # webpack4-react
-*github地址：https://github.com/tips1991/webpack4-react.git<br> 
+*github地址：https://github.com/tips1991/webpack4-react.git*<br> 
 ## webpack4配置 我装的都是2020.1.4号最新的<br> 
 1. 新进目录（名字自己起）<br> 
 2. 顺序执行以下代码(window和mac命令有略微出入，请注意)<br> 
+```DOS
 npm init -y<br> 
 cnpm i webpack webpack-cli -D // 针对webpack4的安装<br> 
 mkdir src && cd src && touch index.html index.js    //webpack4约定大于配置，创建默认的入口文件src/index.js<br> 
@@ -10,8 +11,9 @@ cd ../ && mkdir dist && mkdir static<br>
 touch webpack.config.js               //webpack配置文件<br> 
 npm i webpack-dev-server --save-dev   //热更新server，但是要手动刷新浏览器。请安装下面依赖，自动更新<br> 
 cnpm i html-webpack-plugin@latest -D  //生成内存html的插件  --自动热更新反应到浏览器<br> 
-
-配置 package.json文件<br> 
+```
+3. 配置 package.json文件<br>
+```javascript
 //package.json<br> 
 {<br> 
   "name": "webpack4",<br> 
@@ -32,8 +34,9 @@ cnpm i html-webpack-plugin@latest -D  //生成内存html的插件  --自动热�
     "webpack-dev-server": "^3.10.1"<br> 
   }<br> 
 }<br> 
-
-配置webpack.config.js<br> 
+```
+4. 配置webpack.config.js<br> 
+```javascript
 const path = require('path');<br> 
 const HtmlWebpackPlugin = require('html-webpack-plugin');//个人理解：生成临时html文件到根目录的内存中。代码编辑保存后重新渲染一份静态的临时文件到根目录内存<br> 
 // 创建一个插件的实例化对象<br> 
@@ -48,17 +51,14 @@ module.exports = {<br>
 		htmlPlugin <br> 
 	]<br> 
 }<br> 
-
-我是小尾巴…………<br> 
+```
 
 # react配置
 
-react：用于创建组件和虚拟DOM，同时组件的生命周期都在这个包中<br> 
-react-dom：进行dom操作，主要场景：ReactDOM.render()<br> 
-安装react和react-dom<br> 
+*react：用于创建组件和虚拟DOM，同时组件的生命周期都在这个包中*<br> 
+*react-dom：进行dom操作，主要场景：ReactDOM.render()*<br> 
+1. 安装react和react-dom<br> 
+```DOM
 cnpm i react react-dom -S  //-S开发环境和生产环境安装  -D只在开发环境安装<br> 
+```
 
-对对对<br> 
-对对对<br> 
-顶顶顶顶<br> 
-顶顶顶顶<br> 
