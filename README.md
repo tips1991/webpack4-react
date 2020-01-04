@@ -11,6 +11,9 @@ cd ../ && mkdir dist && mkdir static
 touch webpack.config.js               //webpack配置文件
 npm i webpack-dev-server --save-dev   //热更新server，但是要手动刷新浏览器。请安装下面依赖，自动更新
 cnpm i html-webpack-plugin@latest -D  //生成内存html的插件  --自动热更新反应到浏览器
+cnpm i babel-core@latest babel-loader@latest babel-plugin-transform-runtime@latest -D
+cnpm i babel-preset-env babel-preset-stage-0 -D
+cnpm i babel-preset-react -D  	      //支持react标签转换
 ```
 3. 配置 package.json文件<br>
 ```javascript
@@ -37,19 +40,24 @@ cnpm i html-webpack-plugin@latest -D  //生成内存html的插件  --自动热�
 ```
 4. 配置webpack.config.js<br> 
 ```javascript
-const path = require('path'); 
-const HtmlWebpackPlugin = require('html-webpack-plugin');//个人理解：生成临时html文件到根目录的内存中。代码编辑保存后重新渲染一份静态的临时文件到根目录内存
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // 创建一个插件的实例化对象
-const htmlPlugin = new HtmlWebpackPlugin( 
-	template:path.join(__dirname,'./src/index.html'),//源文件，对此文件生成临时文件到内存中
-	filename:'index.html' //生成的临时文件目录和文件名称。（目录：根目录。文件名称：index.html）
+const htmlPlugin = new HtmlWebpackPlugin({
+	template:path.join(__dirname,'./src/index.html'),//源文件
+	filename:'index.html'
 });
-// 向外暴露一个打包的配置对象，因为webpack是基于node构建的，所以webpack支持所有node api和语法 
+// 向外暴露一个打包的配置对象，因为webpack是基于node构建的，所以webpack支持所有node api和语法
 module.exports = {
 	mode:'development',// 在webpack4中，约定大于配置，约定入口为src/index.js
 	plugins:[
-		htmlPlugin 
-	]
+		htmlPlugin
+	],
+	module:{ //所有第三方 模块的配置规则
+		rules:[ //第三方匹配规则
+			{test:/\.js|jsx$/,use:'babel-loader',exclude:/node_modules/} //匹配js/jsx后缀的使用babel-loader转译，exclude除了node_modules此目录
+		]
+	}
 }
 ```
 
