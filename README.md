@@ -15,6 +15,7 @@ cnpm i babel-core@latest babel-loader@latest babel-plugin-transform-runtime@late
 cnpm i babel-preset-env babel-preset-stage-0 -D
 cnpm i babel-preset-react -D  	      //支持react标签转换
 cnpm i style-loader css-loader -D     //安装样式相关loader
+cnpm i bootstrap@3.3.7 -S             //安装bootstrapUI框架
 ```
 3. 配置 package.json文件<br>
 ```javascript
