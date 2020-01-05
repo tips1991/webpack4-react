@@ -14,6 +14,7 @@ cnpm i html-webpack-plugin@latest -D  //生成内存html的插件  --自动热�
 cnpm i babel-core@latest babel-loader@latest babel-plugin-transform-runtime@latest -D
 cnpm i babel-preset-env babel-preset-stage-0 -D
 cnpm i babel-preset-react -D  	      //支持react标签转换
+cnpm i style-loader css-loader -D     //安装样式相关loader
 ```
 3. 配置 package.json文件<br>
 ```javascript
@@ -55,8 +56,15 @@ module.exports = {
 	],
 	module:{ //所有第三方 模块的配置规则
 		rules:[ //第三方匹配规则
-			{test:/\.js|jsx$/,use:'babel-loader',exclude:/node_modules/} //匹配js/jsx后缀的使用babel-loader转译，exclude除了node_modules此目录
+			{test:/\.js|jsx$/,use:'babel-loader',exclude:/node_modules/}, //匹配js/jsx后缀的使用babel-loader转译，exclude除了node_modules此目录
+			{test:/\.css$/,use:['style-loader','css-loader']},//打包处理css样式的第三方loader
 		]
+	},
+	resolve:{
+		extensions:['.js','.jsx','json'], //表示这几种文件后缀名会默认补全。import时可以省略后缀
+		alias:{ //别名，定义全局目录变量之类的作用
+			'@':path.join(__dirname,'./src') //@定义为根目录下的src文件
+		}
 	}
 }
 ```
