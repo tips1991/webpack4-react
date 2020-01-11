@@ -1,6 +1,6 @@
 # webpack4-react
 *github地址：https://github.com/tips1991/webpack4-react.git*<br> 
-## webpack4配置 我装的都是2020.1.4号最新的<br> 
+## webpack4配置 我装的都是2020.1.4号最新的...<br> 
 1. 新进目录（名字自己起）<br> 
 2. 顺序执行以下代码(window和mac命令有略微出入，请注意)<br> 
 ```DOS
