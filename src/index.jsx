@@ -8,6 +8,7 @@ import UserListModoule from '@/components/UserListModoule'
 // class Person extends components{ ①
 //使用class定义组件，必须让自己的组件，继承React.Component
 import 'bootstrap/dist/css/bootstrap.css'
+import '@/css/userlist.scss'
 import BindClick from '@/components/bindclick'
 
 const user = {

@@ -35,7 +35,10 @@ module.exports = {
                     },
                     {loader:"sass-loader"}
                 ],
-            }, //打包处理scss文件loader
+			}, //打包处理scss文件loader
+			{
+				test:/\.(png|jpg|gif|bmp)$/,use:'url-loader?limit=5000' //转图片，小于5000kb的转base64
+			},
 		]
 	},
 	resolve:{

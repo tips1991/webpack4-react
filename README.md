@@ -16,27 +16,47 @@ cnpm i babel-preset-env babel-preset-stage-0 -D
 cnpm i babel-preset-react -D  	      //支持react标签转换
 cnpm i style-loader css-loader -D     //安装样式相关loader
 cnpm i bootstrap@3.3.7 -S             //安装bootstrapUI框架
+cnpm i clean-webpack-plugin -D		  //自动删除旧包（dist）等文件的插件
 ```
 3. 配置 package.json文件<br>
 ```javascript
 //package.json
-{ 
+{
   "name": "webpack4",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --open --hot" 
+    "dev": "webpack-dev-server --open --hot",
+    "prd": "webpack --config webpack.pub.config.js"
   },
   "keywords": [],
-  "author": "", 
+  "author": "",
   "license": "ISC",
-  "devDependencies": 
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.4.1",
+    "file-loader": "^5.0.2",
     "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.1.2",
+    "url-loader": "^3.0.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   }
 }
 ```
@@ -58,7 +78,31 @@ module.exports = {
 	module:{ //所有第三方 模块的配置规则
 		rules:[ //第三方匹配规则
 			{test:/\.js|jsx$/,use:'babel-loader',exclude:/node_modules/}, //匹配js/jsx后缀的使用babel-loader转译，exclude除了node_modules此目录
-			{test:/\.css$/,use:['style-loader','css-loader']},//打包处理css样式的第三方loader
+			{
+                test: /\.css$/,
+                use: [
+                    {loader: "style-loader"}, 
+                    {loader: "css-loader"}
+                ],//打包处理css样式表的第三方loader
+            },//打包处理css样式的第三方loader,?modules:表示为普通css样式表，启用模块化
+			{test:/\.ttf|woff|woff2|eot|svg$/,use:'url-loader'},//打包处理 字体文件 的loader
+			{
+				test:/\.scss/,
+				use:[
+                    {loader: "style-loader"}, 
+                    {loader: "css-loader",
+	                    options: {
+	                        modules: {
+	                            localIdentName: "[path][name]-[local]-[hash:5]"
+	                        }
+	                    }
+                    },
+                    {loader:"sass-loader"}
+                ],
+			}, //打包处理scss文件loader
+			{
+				test:/\.(png|jpg|gif|bmp)$/,use:'url-loader?limit=5000' //转图片，小于5000kb的转base64
+			},
 		]
 	},
 	resolve:{
