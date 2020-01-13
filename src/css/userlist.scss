@@ -1,0 +1,9 @@
+.fontsize{
+	font-weight:bold;
+}
+#fontstyle{
+	font-size: 12px;
+}
+:global(.test){
+	font-style: italic;
+}
