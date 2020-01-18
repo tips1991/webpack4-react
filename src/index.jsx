@@ -1,6 +1,7 @@
 // import React,{components} from 'react'; ①
 import React from 'react';
 import ReactDom from 'react-dom';
+import $ from 'jquery';
 
 
 // import UserList from './components/UserList'

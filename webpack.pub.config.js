@@ -2,17 +2,55 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");//导入自动删除dist文件的插件，打包前自动删除
-// 创建一个插件的实例化对象，生成内存的html，及时预览
-const htmlPlugin = new HtmlWebpackPlugin({
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");//webpack4 css抽离插件，webpack3中的extract-text-webpack-plugin(3.0)在webpack4中不支持,4.0会支持
+const htmlPlugin = new HtmlWebpackPlugin({// 创建一个插件的实例化对象，生成内存的html，及时预览
 	template:path.join(__dirname,'./src/index.html'),//源文件
-	filename:'index.html'
+	filename:'index.html',
+	minify:{
+		collapseWhitespace:true,//合并多余空格
+		removeComments:true,//移除注释
+		removeAttributeQuotes:true//移除 属性上的双引号
+	}
 });
 // 向外暴露一个打包的配置对象，因为webpack是基于node构建的，所以webpack支持所有node api和语法
 module.exports = {
 	mode:'production',// 在webpack4中，约定大于配置，约定入口为src/index.js
+	entry:{//配置入口节点
+		index:path.join(__dirname,'./src/index'), //自己的包放到app
+		vendors:['jquery'] //抽离的第三方包放到vendors
+	},
+	output:{
+		path:path.join(__dirname,'./dist'),
+		filename:'js/[name].js'
+	},
+	optimization: { // 优化项
+		splitChunks: { //分割代码块
+		  cacheGroups: { // 缓存
+			commons: { // 公共的代码
+			  name: "commons", // 抽离出来的模块名
+			  chunks: 'initial', // 初始化，从入口文件开始抽离
+			  minSize: 0, // 如果这个代码大于0字节
+			  minChunks: 2, // 这个代码引用多少次才需要抽离
+			},
+			vendors: { // 抽取第三方模块
+			  priority: 1, // 权重，权重越高越先抽取
+			  name: 'vendors',
+			  test: /node_modules/, // 如果你多次引用了node_modules第三方模块,就抽取出来
+			  chunks: 'initial',
+			  minSize: 0,
+			  minChunks: 2
+			}
+		  }
+		}
+	},
 	plugins:[
 		htmlPlugin,
-		new CleanWebpackPlugin()
+		new CleanWebpackPlugin(),//自动删除dist的插件
+		new MiniCssExtractPlugin({ //抽离css文件到单独文件
+		　　 filename: "css/[name].[chunkhash:8].css", //抽离到css文件name.hash8位.css
+		　　 chunkFilename: "[id].css"
+	　　 })
 	],
 	module:{ //所有第三方 模块的配置规则
 		rules:[ //第三方匹配规则
@@ -20,8 +58,10 @@ module.exports = {
 			{
                 test: /\.css$/,
                 use: [
-                    {loader: "style-loader"}, 
-                    {loader: "css-loader"}
+                    // {loader: "style-loader"}, 
+					// {loader: "css-loader"},
+					MiniCssExtractPlugin.loader,
+					"css-loader"
                 ],//打包处理css样式表的第三方loader
             },//打包处理css样式的第三方loader,?modules:表示为普通css样式表，启用模块化
 			{test:/\.ttf|woff|woff2|eot|svg$/,use:'url-loader'},//打包处理 字体文件 的loader
