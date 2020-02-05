@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // 创建一个插件的实例化对象
 const htmlPlugin = new HtmlWebpackPlugin({
 	template:path.join(__dirname,'./src/index.html'),//源文件
@@ -10,11 +9,8 @@ const htmlPlugin = new HtmlWebpackPlugin({
 module.exports = {
 	mode:'development',// 在webpack4中，约定大于配置，约定入口为src/index.js
 	plugins:[
-		htmlPlugin
+		htmlPlugin,
 	],
-	optimization: {
-		minimizer: [new UglifyJsPlugin()],
-	},
 	module:{ //所有第三方 模块的配置规则
 		rules:[ //第三方匹配规则
 			{test:/\.js|jsx$/,use:'babel-loader',exclude:/node_modules/}, //匹配js/jsx后缀的使用babel-loader转译，exclude除了node_modules此目录
@@ -45,6 +41,15 @@ module.exports = {
 			},
 		]
 	},
+	devServer: {
+        proxy: {
+            "/api": {
+                "target": "https://5b5e71c98e9f160014b88cc9.mockapi.io",
+                "changeOrigin": true,
+                "pathRewrite": {"^/api": "/api"}
+            }
+        }
+    },
 	resolve:{
 		extensions:['.js','.jsx','json'], //表示这几种文件后缀名会默认补全。import时可以省略后缀
 		alias:{ //别名，定义全局目录变量之类的作用

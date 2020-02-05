@@ -16,8 +16,7 @@ cnpm i babel-preset-env babel-preset-stage-0 -D
 cnpm i babel-preset-react -D  	      //支持react标签转换
 cnpm i style-loader css-loader -D     //安装样式相关loader
 cnpm i bootstrap@3.3.7 -S             //安装bootstrapUI框架
-cnpm i clean-webpack-plugin -D		    //自动删除旧包（dist）等文件的插件
-cnpm i mini-css-extract-plugin -D     //webpack4 css抽离插件，webpack3中的extract-text-webpack-plugin(3.0)在webpack4中不支持,4.0会支持
+cnpm i clean-webpack-plugin -D		  //自动删除旧包（dist）等文件的插件
 ```
 3. 配置 package.json文件<br>
 ```javascript
